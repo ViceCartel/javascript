@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <style media="screen">
+      body {
+        height: 200px;
+        background: beige;
+      }
+      .dot {
+        height: 8px; width: 8px;
+        border-radius: 4px; /*rounds corners*/
+        background: blue;
+        position: absolute;
+      }
+
+      /*touch events*/
+      dot {
+        position:absolute; display: block; border:2px solid red;
+        border-radius: 50px; height: 100px; width: 100px;
+      }
+    </style>
+    <p>Drag the bar to change its width.</p>
+    <div style="background: orange; width: 60px; height: 20px">
+    </div>
+    <p>Touch this page.</p>
+    <script>
+       // MOUSE CLICKS events
+
+
+      window.addEventListener("click", event => {
+        let dot = document.createElement("div");
+        dot.className = "dot";
+        dot.style.left = (event.pageX - 4) + "px";
+        dot.style.top = (event.pageY -4) + "px";
+        document.body.appendChild(dot);
+      });
+
+       // MOUSE MOTIONS events --mousemove
+       let lastX; //Tracks the last observed mouse X position
+       let bar = document.querySelector("div");
+       bar.addEventListener("mousedown", event => {
+         if (event.button == 0) {
+           lastX = event.clientX;
+           window.addEventListener("mousemove", moved);
+           event.preventDefault(); // Prevent selection
+         }
+       });
+       function moved(event) {
+         if (event.buttons == 0) {
+           window.removeEventListener("mousemove", moved);
+         } else {
+           let dist = event.clientX - lastX;
+           let newWidth = Math.max(10, bar.offsetWidth + dist);
+           bar.style.width = newWidth + "px";
+           lastX = event.clientX;
+         }
+       }
+
+       // TOUCH EVENTS --touches, touchstart,touchmove, touchend
+       function update(event) {
+         for (let dot; dot = document.querySelector("dot");) {
+           dot.remove();
+         }
+         for (let i = 0; i < event.touches.length; i++) {
+           let {pageX, pageY} = event.touches[i];
+           let dot = document.createElement("dot");
+           dot.style.left = (pageX - 50) + "px";
+           dot.style.top = (pageY - 50) + "px";
+           document.body.appendChild(dot);
+         }
+       }
+       window.addEventListener("touchstart", update);
+       window.addEventListener("touchmove", update);
+       window.addEventListener("touchend", update);
+    </script>
+
+  </body>
+</html>
