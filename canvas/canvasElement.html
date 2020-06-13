@@ -1,0 +1,36 @@
+<!--
+canvas elements are drawn onto a <canves> element
+You can create a context with the getContext method on the <canvas> DOM element.
+
+ -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <p>Before canvas.</p>
+    <canvas width="120" height="60"></canvas>
+    <p>After canvas.</p>
+
+    <script type="text/javascript">
+
+      /*
+      The example draws a red rectangle 100px wide and 50px high,
+      with its top-left corner coordinates (10, 10).
+      */
+
+      let canvas = document.querySelector("canvas");
+      let context = canvas.getContext("2d");
+      context.fillStyle = "red";
+      context.fillRect(10, 10, 100, 50);
+
+
+
+
+
+    </script>
+  </body>
+</html>
