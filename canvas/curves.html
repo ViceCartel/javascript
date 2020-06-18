@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+        <!--
+        - quadraticCurveTo method draws a curve to a given point.
+        - the bezierCurveTo method draws a similar kind of curve, but instead of a single control point
+        this one has two control points.
+          -->
+    <p>quadraticCurveTo method.</p>
+
+    <canvas></canvas>
+
+    <p>bezierCurveTo method (with two control points).</p>
+    <canvas id="canvas"></canvas>
+
+    <p>Drawing a circle with an arc.</p>
+    <canvas id="circle"></canvas>
+
+    <script>
+      let cx = document.querySelector("canvas").getContext("2d");
+      cx.beginPath();
+      cx.moveTo(10, 90);
+      // control=(60 ,10) goal=(90, 90)
+      cx.quadraticCurveTo(60, 10, 90, 90);
+      cx.lineTo(60, 10);
+      cx.closePath();
+      cx.stroke();
+
+      let cx1 = document.getElementById("canvas").getContext("2d");
+      cx1.beginPath();
+      cx1.moveTo(10, 90);
+      // controll1 = (10,10) control2=(90,10) goal=(50,90)
+      cx1.bezierCurveTo(10, 10, 90, 10, 50, 90);
+      cx1.lineTo(90, 10);
+      cx1.lineTo(10, 10);
+      cx1.closePath();
+      cx1.stroke();
+
+      let cx2 = document.getElementById("circle").getContext("2d");
+      cx2.beginPath();
+      // center=(50,50) redius=40 angle=0 to 7 (in radians)
+      cx2.arc(50, 50, 40, 0, 7);
+      // center=(150,50) radius=40 angle=0 to a half pie.
+      cx2.arc(150, 50, 40, 0, 0.5 * Math.PI);
+      cx2.stroke();
+
+    </script>
+  </body>
+</html>
